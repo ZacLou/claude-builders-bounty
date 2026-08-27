@@ -1,53 +1,63 @@
-# Claude Builders Bounty 🤖
+# generate-changelog
 
-> A community bounty board for Claude Code builders.
+> Auto-generate a structured `CHANGELOG.md` from git history.
+> Bounty submission for [claude-builders-bounty#1](https://github.com/claude-builders-bounty/claude-builders-bounty/issues/1).
 
-Building with Claude Code? Have tasks to delegate?
-Want to get paid for contributing to AI projects?
-You're in the right place.
+## Setup (3 steps)
 
----
+```bash
+# 1. Copy the script into any git repo
+cp changelog.sh generate_changelog.py /path/to/your/repo/
+
+# 2. Make it executable
+chmod +x changelog.sh
+
+# 3. Run it
+./changelog.sh
+```
+
+## Usage
+
+| Command | What it does |
+|---------|-------------|
+| `./changelog.sh` | Print changelog to stdout |
+| `./changelog.sh -w` | Write/update `CHANGELOG.md` in current directory |
+| `./changelog.sh -o FILE` | Write output to a custom file |
 
 ## How it works
 
-**To post a bounty**
-1. Open a GitHub issue with a clear description and acceptance criteria
-2. Comment `/opire create $XXX` in the issue to set the reward
-3. Share the link — contributors will find it
+1. Finds the latest git tag with `git describe --tags`
+2. Reads all commits since that tag
+3. Parses conventional commit prefixes (`feat:`, `fix:`, `refactor:`, etc.)
+4. Auto-categorizes into:
+   - **Added** — `feat`, `add`, `new`, `implement`
+   - **Fixed** — `fix`, `bug`, `patch`, `resolve`
+   - **Changed** — `refactor`, `update`, `improve`, `tweak`
+   - **Removed** — `remove`, `delete`, `deprecate`, `drop`
+   - **Other** — everything else
+5. Outputs a [Keep a Changelog](https://keepachangelog.com/)–style markdown
 
-**To claim a bounty**
-1. Browse the open issues below
-2. Comment `/opire try` in the issue you want to work on
-3. Submit a PR — payment is automatic on merge ✅
+## Sample output
 
----
+```
+# Changelog
 
-## Active Bounties
+## [2026-08-27] — v1.0.0 → HEAD
 
-| # | Task | Amount | Status |
-|---|------|--------|--------|
-| [#1](../../issues/1) | SKILL: Generate a CHANGELOG from git history | $50 | 🟢 Open |
-| [#2](../../issues/2) | TEMPLATE: CLAUDE.md for a Next.js + SQLite project | $75 | 🟢 Open |
-| [#3](../../issues/3) | HOOK: Block destructive bash commands in Claude Code | $100 | 🟢 Open |
-| [#4](../../issues/4) | AGENT: PR reviewer with structured Markdown output | $150 | 🟢 Open |
-| [#5](../../issues/5) | WORKFLOW: n8n + Claude API — automated weekly dev summary | $200 | 🟢 Open |
+### Added
+- feat: initial README with bounty board
 
----
+### Fixed
+- fix: correct license year
 
-## Rules
+### Changed
+- refactor: split changelog generation into separate module
 
-- Tasks must be related to Claude Code or AI tooling
-- Every issue must have clear acceptance criteria before a bounty is activated
-- Payment is handled by [Opire](https://opire.dev) (Stripe)
-- Quality over speed — a solid PR beats a fast one
+### Other
+- Initial commit
+```
 
----
+## Requirements
 
-## Community
-
-- 🐦 X: [@ClaudeBounty](https://x.com/ClaudeBounty)
-- 📧 Contact: claudebounty@gmail.com
-
----
-
-*Started by the Claude builder community · March 2026 · MIT License*
+- Python 3.9+
+- Git
