@@ -1,0 +1,217 @@
+# Changelog
+
+## Unreleased
+
+### Added
+- add DAPP_URL to web3-onboard config
+- add local dev wallet connect domain verification
+- Added % label, changed "Help" button to "Details"
+- Added Take Profit/Stop Loss modal
+- Added 24h funding rate tooltip
+- Add asset column w/ CAP logo to staking page
+- added dropdown input and persisted marginOrSize in localStorage
+- Add shortcuts for staking/unstaking max amount
+- Add numberWithCommas function on formatters and integrate on frontend
+- Add % corresponding to pool or CAP stake
+
+### Fixed
+- Fixed issue with terser wrecking imports in production mode.
+- Fixed issue connecting to WalletConnect on iOS
+- Fixes
+- Fixes
+- Fixes
+- fixes
+- Fixes
+- fixes
+- fixes
+- Fixes
+- fixes
+- fixes
+- Fixed number input formatting issues
+- Fixed sorting bugs in the Positions section
+- Fixing Display more information when depositing/withdrawing from pools
+- Fixed Scrollbar displaces chart #37
+- Fixing Scrollbar displaces chart #37
+
+### Changed
+- Update Ticker.svelte
+- Update socket.js
+- update local dev wallet connect project ID
+- update packages
+- Update routing.js
+- Updates
+- Update connect.js
+- Update Leaderboard.svelte
+- Update Pools.svelte
+- Update Leaderboard.svelte
+- Update formatters.js
+- Update formatters.js
+- Updates
+- Updates
+- Update Withdraw.svelte
+- Update errors.js
+- Update config.js
+- Update Home.svelte
+- Update Account.svelte
+- Update Home.svelte
+- Update pool.js
+- Update markets.js
+- Update Trade.svelte
+- Update markets.js
+- Update Home.svelte
+- Updates
+- Update Home.svelte
+- Update Home.svelte
+- Updates
+- Update Home.svelte
+- Update Home.svelte
+- Update Positions.svelte
+- Update Slider.svelte
+- Update Connect.svelte
+- Update Home.svelte
+- Updates
+- Updates
+- Update Nav.svelte
+- Update Home.svelte
+- Update Markets.svelte
+- Update Table.svelte
+- Update Home.svelte
+- Updates
+- Updates
+- Update Leaderboard.svelte
+- Update NewOrder.svelte
+- Updates
+- Updates
+- Updates
+- Updates
+- Changed dropdown menu to button, text overflow fix
+- Update work to fix issue #20
+- Updates for PR feedback
+- Update numberWithCommas function to work based on locale
+- Update Slider.svelte
+- Update dataEndpoint
+- Update Pools.svelte
+- Update OrderDetails.svelte
+- Update OrderDetails.svelte
+- Update StakeCAP.svelte
+- Update StakeCAP.svelte
+
+### Removed
+- remove local dev config
+- remove local dev configs
+- removed unused code
+
+### Other
+- Merge branch 'main' of github.com:capofficial/client
+- Merge pull request #87 from risasoft/main
+- Merge pull request #86 from risasoft/main
+- Merge pull request #85 from risasoft/main
+- base mainnet support
+- Upgrading WalletConnect
+- PEPE precision
+- Tooltips, nav
+- ARB rewards
+- loserboard, mobile nav
+- minor updates
+- RO hide buying power, homepage
+- Showing available liquidity
+- RO,TP,SL fixes
+- Amount based LP tax
+- Merge pull request #84 from capofficial/lp-taxes
+- Merge pull request #83 from capofficial/lp-taxes
+- Merge pull request #82 from capofficial/lp-taxes
+- LP deposit/withdraw dynamic cost
+- Mobile UI
+- balance and state reloading, home fix
+- autoconnect, state updates, disconnect
+- blocknative wallet connection onboarding
+- Base Goerli support
+- Home updates
+- Home updates
+- Funding
+- market toggle
+- Prod
+- Narrow UI fixes
+- Pyth logo, current market price
+- dashboard im
+- Mobile slider fix
+- Merge pull request #81 from capofficial/dev
+- Merge pull request #80 from capofficial/dev
+- Merge pull request #79 from capofficial/dev
+- latest price fix
+- Merge pull request #78 from capofficial/dev
+- Button fixes
+- Merge pull request #77 from capofficial/dev
+- Merge pull request #76 from capofficial/dev
+- Merge pull request #75 from capofficial/dev
+- Merge pull request #74 from capofficial/pyth
+- Pyth support
+- market tickers
+- market tickers
+- pyth price treaming
+- Margin editing
+- TP/SL gain / loss
+- leaderboard current and last months
+- reverts, updates, fixes
+- Revert "Updates"
+- Revert "Updates"
+- Revert "Updates"
+- Revert "Update NewOrder.svelte"
+- Leaderboard
+- Merge pull request #73 from capofficial/dev
+- Landing page
+- Merge pull request #71 from uncoolzero/main
+- Merge pull request #70 from uncoolzero/main
+- Reenabled checks
+- Issue #24 - Added referral fee discount to the Fee Discounts modal
+- Quick fix for Margin input allowing more than 4 decimal digits
+- Merge pull request #69 from uncoolzero/main
+- Edit Margin Modal now shows updated liq price/margin/leverage
+- Merge pull request #68 from uncoolzero/main
+- Merge pull request #66 from uncoolzero/main
+- Merge pull request #65 from uncoolzero/main
+- Merge pull request #64 from uncoolzero/main
+- Tweaked dropdown input spacing, fixed slider bug
+- Merge pull request #63 from acaldas/fix/12
+- Patched chart overlay fix
+- Merge pull request #62 from fhrryDeveloper/main
+- Merge pull request #61 from 0xdarkcap/main
+- pool page re-rendering on address change
+- Merge pull request #55 from ModernForays/feat/issue-0025
+- Merge pull request #45 from adebayokehinde/main
+- Merge branch 'capofficial:main' into main
+- Merge pull request #54 from hjjinx/main
+- converted margin to Number in getMargin util
+- Merge branch 'capofficial:main' into main
+- discarding files and reverted files to initial commit
+- discarded changes to other files
+- calculated and displayed size and margin correctly
+- Merge pull request #41 from ModernForays/feat/issue-0022
+- getCapWalletBalance -> getCAPWalletBalance
+- Use Math.ceil in formatCAPForDisplay
+- Handle unconnected wallet in getCapWalletBalance
+- Rework formatCAPForDisplay
+- Improve max staking/unstaking rounding
+- Use raw CAP wallet balance for max staking
+- Merge pull request #51 from fhrryDeveloper/main
+- Merge pull request #50 from janbsw/Dots
+- Disable snapping for sliders not having dots
+- Disable the sliderdots showing on leverage select
+- Merge pull request #47 from capofficial/dataEndpoint
+- moved grid edits from global.css to Trade.svelte
+- Merge pull request #43 from 0xdarkcap/main
+- removing feeRebate calculations from buying power.
+- Merge pull request #39 from janbsw/main
+- Merge pull request #42 from devtimnbr/reset-order-fields
+- reset new order fields on market change
+- reset new order fields on market change
+- reset new order fields on market change
+- reset new order fields on market change
+- Merge branch 'main' of https://github.com/0xdarkcap/client-1
+- Buying Power correction
+- corrections
+- Merge pull request #40 from janbsw/Liquidation-Price-Display
+- Style changes
+- Edge Case consideration + Spelling adjustments
+- Updating readme
+
