@@ -1,0 +1,76 @@
+#!/usr/bin/env python3
+"""
+Claude Code pre-tool-use hook.
+
+Install:
+    mkdir -p ~/.claude/hooks
+    cp pre-tool-use ~/.claude/hooks/pre-tool-use
+    chmod +x ~/.claude/hooks/pre-tool-use
+
+This hook receives JSON on stdin and writes JSON on stdout.
+It blocks dangerous bash commands and logs them to ~/.claude/hooks/blocked.log.
+"""
+
+import json
+import os
+import re
+import sys
+from datetime import datetime, timezone
+
+BLOCKED_PATTERNS = [
+    # Destructive filesystem commands
+    (r"\brm\s+-rf\b", "rm -rf can recursively delete files irreversibly."),
+    # Dangerous SQL
+    (r"\bDROP\s+TABLE\b", "DROP TABLE destroys table structure and data."),
+    (r"\bTRUNCATE\b", "TRUNCATE removes all rows without logging individual deletes."),
+    (r"\bDELETE\s+FROM\b(?!.*\bWHERE\b)", "DELETE FROM without WHERE removes all rows."),
+    # Dangerous git
+    (r"\bgit\s+push\s+.*--force\b", "git push --force can overwrite remote history."),
+]
+
+LOG_FILE = os.path.expanduser("~/.claude/hooks/blocked.log")
+
+
+def log_block(command: str, reason: str, project_path: str):
+    os.makedirs(os.path.dirname(LOG_FILE), exist_ok=True)
+    timestamp = datetime.now(timezone.utc).isoformat()
+    with open(LOG_FILE, "a", encoding="utf-8") as f:
+        f.write(f"{timestamp} | {project_path} | {command} | {reason}\n")
+
+
+def main():
+    try:
+        payload = json.load(sys.stdin)
+    except json.JSONDecodeError:
+        print(json.dumps({"decision": "allow"}))
+        return
+
+    tool_name = payload.get("tool_name", "")
+    tool_input = payload.get("tool_input", {}) or {}
+
+    # We only intercept the Bash tool. Other tools are allowed.
+    if tool_name != "Bash":
+        print(json.dumps({"decision": "allow"}))
+        return
+
+    command = tool_input.get("command", "")
+    project_path = tool_input.get("working_directory") or os.environ.get("PWD", "unknown")
+
+    command_stripped = command.strip()
+    upper_command = command.upper()
+
+    for pattern, reason in BLOCKED_PATTERNS:
+        # For SQL, match case-insensitively; for others use the case in the regex.
+        if re.search(pattern, command, re.IGNORECASE if "DROP" in pattern or "DELETE" in pattern or "TRUNCATE" in pattern else 0):
+            log_block(command_stripped, reason, project_path)
+            print(json.dumps({
+                "decision": "block",
+                "message": f"Blocked by safety hook: {reason}\nCommand: {command_stripped}\nIf you are sure this is safe, ask the user to run it manually outside of Claude Code."
+            }))
+            return
+
+    print(json.dumps({"decision": "allow"}))
+
+
+if __name__ == "__main__":
+    main()
